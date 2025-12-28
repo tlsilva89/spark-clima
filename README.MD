@@ -69,7 +69,6 @@ clima-tempo/
 │           ├── main.qml
 │           └── configGeneral.qml
 ├── install.sh
-├── update.sh
 └── uninstall.sh
 ```
 
