@@ -15,6 +15,9 @@ PlasmoidItem {
     property string cidadeNome: ""
     property string estado: ""
     property int temperatura: 0
+    property int sensacaoTermica: 0
+    property int temperaturaMin: 0
+    property int temperaturaMax: 0
     property string condicao: ""
     property string condicaoCode: ""
     property string atualizado: ""
@@ -128,9 +131,9 @@ PlasmoidItem {
     
     fullRepresentation: Item {
         Layout.minimumWidth: 240
-        Layout.minimumHeight: 280
+        Layout.minimumHeight: 320
         Layout.preferredWidth: 280
-        Layout.preferredHeight: 320
+        Layout.preferredHeight: 360
         
         Rectangle {
             anchors.fill: parent
@@ -178,6 +181,39 @@ PlasmoidItem {
             }
             
             PlasmaComponents.Label {
+                visible: !root.carregando && !root.erro && root.sensacaoTermica !== root.temperatura
+                text: "Sensação térmica " + root.sensacaoTermica + "°"
+                font.pointSize: 10
+                color: PlasmaCore.Theme.textColor
+                opacity: 0.6
+                Layout.alignment: Qt.AlignHCenter
+            }
+            
+            Item { 
+                Layout.preferredHeight: 10
+            }
+            
+            RowLayout {
+                visible: !root.carregando && !root.erro
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 20
+                
+                PlasmaComponents.Label {
+                    text: "↓ " + root.temperaturaMin + "°"
+                    font.pointSize: 11
+                    color: PlasmaCore.Theme.textColor
+                    opacity: 0.7
+                }
+                
+                PlasmaComponents.Label {
+                    text: "↑ " + root.temperaturaMax + "°"
+                    font.pointSize: 11
+                    color: PlasmaCore.Theme.textColor
+                    opacity: 0.7
+                }
+            }
+            
+            PlasmaComponents.Label {
                 visible: root.carregando
                 text: "Carregando..."
                 font.pointSize: 12
@@ -220,7 +256,7 @@ PlasmoidItem {
             }
             
             Item { 
-                Layout.preferredHeight: 20
+                Layout.fillHeight: true
             }
             
             RowLayout {
@@ -282,6 +318,9 @@ PlasmoidItem {
                             root.cidadeNome = dados.cidade
                             root.estado = dados.estado
                             root.temperatura = dados.temperatura
+                            root.sensacaoTermica = dados.sensacao_termica
+                            root.temperaturaMin = dados.temperatura_min
+                            root.temperaturaMax = dados.temperatura_max
                             root.condicao = dados.condicao
                             root.condicaoCode = dados.condicao_code
                             root.atualizado = dados.atualizado

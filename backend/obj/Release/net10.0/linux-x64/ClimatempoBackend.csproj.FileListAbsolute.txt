@@ -724,6 +724,3 @@
 /home/thiago/Documentos/spark-clima/backend/obj/Release/net10.0/linux-x64/ClimatempoBackend.pdb
 /home/thiago/Documentos/spark-clima/backend/obj/Release/net10.0/linux-x64/ClimatempoBackend.genruntimeconfig.cache
 /home/thiago/Documentos/spark-clima/backend/obj/Release/net10.0/linux-x64/ref/ClimatempoBackend.dll
-/home/thiago/Documentos/spark-clima/backend/bin/Release/net10.0/linux-x64/publish/appsettings.Development.json
-/home/thiago/Documentos/spark-clima/backend/bin/Release/net10.0/linux-x64/publish/appsettings.json
-/home/thiago/Documentos/spark-clima/backend/bin/Release/net10.0/linux-x64/publish/ClimatempoBackend.staticwebassets.endpoints.json

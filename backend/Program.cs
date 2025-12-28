@@ -35,13 +35,14 @@ app.MapGet("/clima", async (string busca, IHttpClientFactory clientFactory) =>
         string nomeCidade = cidade.GetProperty("name").GetString() ?? "";
         string estado = cidade.TryGetProperty("admin1", out var admin1) ? admin1.GetString() ?? "" : "";
         
-        var weatherUrl = $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToString(CultureInfo.InvariantCulture)}&longitude={longitude.ToString(CultureInfo.InvariantCulture)}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America/Sao_Paulo&forecast_days=1";
+        var weatherUrl = $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToString(CultureInfo.InvariantCulture)}&longitude={longitude.ToString(CultureInfo.InvariantCulture)}&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=America/Sao_Paulo&forecast_days=1";
         var weatherRes = await client.GetFromJsonAsync(weatherUrl, AppJsonSerializerContext.Default.JsonElement);
         
         var current = weatherRes.GetProperty("current");
         var daily = weatherRes.GetProperty("daily");
         
         double temp = current.GetProperty("temperature_2m").GetDouble();
+        double feelsLike = current.GetProperty("apparent_temperature").GetDouble();
         int weatherCode = current.GetProperty("weather_code").GetInt32();
         double tempMax = daily.GetProperty("temperature_2m_max")[0].GetDouble();
         double tempMin = daily.GetProperty("temperature_2m_min")[0].GetDouble();
@@ -51,6 +52,7 @@ app.MapGet("/clima", async (string busca, IHttpClientFactory clientFactory) =>
             cidade = nomeCidade,
             estado = estado,
             temperatura = (int)Math.Round(temp),
+            sensacao_termica = (int)Math.Round(feelsLike),
             temperatura_min = (int)Math.Round(tempMin),
             temperatura_max = (int)Math.Round(tempMax),
             condicao = GetWeatherDescription(weatherCode),
@@ -119,6 +121,7 @@ public record ClimaResponse
     public string cidade { get; init; } = "";
     public string estado { get; init; } = "";
     public int temperatura { get; init; }
+    public int sensacao_termica { get; init; }
     public int temperatura_min { get; init; }
     public int temperatura_max { get; init; }
     public string condicao { get; init; } = "";
