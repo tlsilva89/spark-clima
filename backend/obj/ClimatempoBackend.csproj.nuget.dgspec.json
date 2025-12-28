@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj": {}
+    "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj": {}
   },
   "projects": {
-    "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj": {
+    "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
+        "projectUniqueName": "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj",
         "projectName": "ClimatempoBackend",
-        "projectPath": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
+        "projectPath": "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj",
         "packagesPath": "/home/thiago/.nuget/packages/",
-        "outputPath": "/home/thiago/Documentos/clima-tempo/backend/obj/",
+        "outputPath": "/home/thiago/Documentos/spark-clima/backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/thiago/.nuget/NuGet/NuGet.Config"
@@ -47,6 +47,12 @@
             "HtmlAgilityPack": {
               "target": "Package",
               "version": "[1.12.4, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.0, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -60,6 +66,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+              "version": "[10.0.0, 10.0.0]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+              "version": "[10.0.0, 10.0.0]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -483,6 +499,11 @@
             "System.Xml.XPath": "(,4.3.32767]",
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
+        }
+      },
+      "runtimes": {
+        "linux-x64": {
+          "#import": []
         }
       }
     }

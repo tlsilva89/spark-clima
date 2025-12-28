@@ -1,0 +1,7 @@
+/home/thiago/Documentos/spark-clima/backend/publish/appsettings.Development.json
+/home/thiago/Documentos/spark-clima/backend/publish/appsettings.json
+/home/thiago/Documentos/spark-clima/backend/publish/publish/appsettings.Development.json
+/home/thiago/Documentos/spark-clima/backend/publish/publish/appsettings.json
+/home/thiago/Documentos/spark-clima/backend/publish/publish/ClimatempoBackend.staticwebassets.endpoints.json
+/home/thiago/Documentos/spark-clima/backend/publish/ClimatempoBackend.pdb
+/home/thiago/Documentos/spark-clima/backend/publish/ClimatempoBackend

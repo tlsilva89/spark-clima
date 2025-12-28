@@ -1,6 +1,6 @@
 # Spark Clima ☀️
 
-Widget minimalista de previsão do tempo para KDE Plasma 6 usando dados brasileiros da API CPTEC/INPE através da BrasilAPI.
+Widget minimalista de previsão do tempo para KDE Plasma 6 com temperatura atual em tempo real usando Open-Meteo API.
 
 ![KDE Plasma 6](https://img.shields.io/badge/KDE-Plasma%206-1d99f3?style=flat-square&logo=kde)
 ![.NET 10.0](https://img.shields.io/badge/.NET-10.0-512BD4?style=flat-square&logo=dotnet)
@@ -8,10 +8,11 @@ Widget minimalista de previsão do tempo para KDE Plasma 6 usando dados brasilei
 
 ## 📋 Sobre
 
-Spark Clima é um widget minimalista para KDE Plasma 6 que exibe a previsão do tempo de cidades brasileiras. Apresenta design moderno com fundo totalmente transparente, ícones adaptativos (dia/noite) e cores que se ajustam automaticamente ao tema do sistema. O backend em C# consome a BrasilAPI e roda como serviço do usuário via systemd.
+Spark Clima é um widget minimalista para KDE Plasma 6 que exibe a temperatura atual e previsão do tempo de qualquer cidade do mundo. Apresenta design moderno com fundo totalmente transparente, ícones adaptativos (dia/noite) e cores que se ajustam automaticamente ao tema do sistema. O backend em C# consome a Open-Meteo API (sem necessidade de chave) e roda como serviço do usuário via systemd.
 
 ## ✨ Características
 
+- **Temperatura Atual Real**: Dados meteorológicos em tempo real da Open-Meteo
 - **Design Ultra Minimalista**: Apenas temperatura e ícone no painel (70x30px)
 - **Fundo Transparente**: Integração perfeita com painéis flutuantes
 - **Ícones Dinâmicos**: Adaptação automática entre ícones diurnos e noturnos
@@ -19,20 +20,22 @@ Spark Clima é um widget minimalista para KDE Plasma 6 que exibe a previsão do 
 - **Atualização Automática**: Dados atualizados a cada 10 minutos (configurável)
 - **Backend como Serviço**: Inicia automaticamente com o sistema
 - **Instalação Automatizada**: Scripts bash para instalar, atualizar e remover
-- **Dados Brasileiros**: API oficial do CPTEC/INPE via BrasilAPI
+- **Sem Chave API**: Open-Meteo é 100% gratuita e sem cadastro
+- **Cobertura Global**: Funciona com qualquer cidade do mundo
 
 ## 🖼️ Preview
 
 ### No Painel (Compacto)
-- Apenas temperatura + ícone (ex: "27° ☀️")
+- Apenas temperatura + ícone (ex: "33° ☁️")
 - Otimizado para painéis de 30px de altura
 - Fundo totalmente transparente
 
 ### Popup (Expandido)
 Clique no widget para expandir:
 - Cidade e estado
-- Temperatura em destaque (64pt)
+- Temperatura atual em destaque (64pt)
 - Ícone grande do clima
+- Temperaturas mínima e máxima
 - Data da última atualização
 - Botão de atualizar
 
@@ -40,7 +43,7 @@ Clique no widget para expandir:
 
 ### Backend
 - C# / ASP.NET Core 10.0
-- API BrasilAPI (CPTEC v1)
+- Open-Meteo API (tempo real, sem chave)
 - JSON Source Generation (AOT friendly)
 - Self-contained deployment
 - Systemd user service
@@ -78,7 +81,7 @@ clima-tempo/
 
 - **Sistema**: Linux com KDE Plasma 6
 - **.NET SDK**: 10.0 (apenas para compilar)
-- **Ferramentas**: kpackagetool6, systemctl
+- **Ferramentas**: `kpackagetool6`, `systemctl`
 
 ```bash
 # Arch Linux / Manjaro
@@ -114,17 +117,17 @@ O script irá:
 
 ### Adicionar ao Painel
 
-1. Clique direito no painel → **Adicionar Widgets**
-2. Procure por "Spark Clima"
-3. Arraste para o painel
+1. **Clique direito** no painel → **Adicionar Widgets**
+2. Procure por **"Spark Clima"**
+3. **Arraste** para o painel
 
 ## ⚙️ Configuração
 
 ### Alterar Cidade
 
-Clique direito no widget → **Configurar Spark Clima**
+**Clique direito no widget** → **Configurar Spark Clima**
 
-- **Cidade**: Nome da cidade (ex: Porto Alegre, São Paulo)
+- **Cidade**: Nome da cidade em qualquer idioma (ex: Porto Alegre, São Paulo, New York, Tokyo)
 - **Intervalo de Atualização**: 5 a 120 minutos (padrão: 10)
 
 ### Gerenciar Backend
@@ -154,11 +157,11 @@ git pull
 ```
 
 O script:
-1. Para o backend
-2. Compila nova versão
-3. Faz backup da versão anterior
-4. Atualiza widget
-5. Reinicia o backend
+- Para o backend
+- Compila nova versão
+- Faz backup da versão anterior
+- Atualiza widget
+- Reinicia o backend
 
 ## 🗑️ Desinstalação
 
@@ -176,20 +179,22 @@ Remove:
 
 ### GET /clima?busca={cidade}
 
+Busca temperatura atual e previsão usando Open-Meteo.
+
 **Parâmetros:**
-- `busca`: Nome da cidade ou ID CPTEC
+- `busca`: Nome da cidade (suporta qualquer idioma)
 
 **Resposta (200 OK):**
 
 ```json
 {
-  "cidade": "Porto Alegre",
-  "estado": "RS",
-  "temperatura": 27,
+  "cidade": "São José dos Campos",
+  "estado": "São Paulo",
+  "temperatura": 33,
   "temperatura_min": 21,
-  "temperatura_max": 34,
-  "condicao": "Parcialmente Nublado",
-  "condicao_code": "pn",
+  "temperatura_max": 35,
+  "condicao": "Nublado",
+  "condicao_code": "n",
   "atualizado": "2025-12-28"
 }
 ```
@@ -198,22 +203,27 @@ Remove:
 
 ```json
 {
-  "erro": "Cidade nao encontrada ou dados indisponiveis"
+  "erro": "Cidade nao encontrada ou dados indisponiveis",
+  "detalhe": null
 }
 ```
 
-## 🎨 Códigos de Condição Climática
+## 🎨 Códigos de Condição Climática (WMO)
+
+O backend converte códigos WMO da Open-Meteo para códigos compatíveis com o widget:
 
 | Código | Condição | Ícone Dia | Ícone Noite |
 |--------|----------|-----------|-------------|
-| ec, c | Céu Claro | ☀️ | 🌙 |
-| pn, pc | Parcialmente Nublado | ⛅ | ☁️🌙 |
-| n, cm, nv | Nublado | ☁️ | ☁️ |
-| pp, pm, ch | Chuva | 🌧️ | 🌧️ |
-| t, pt | Tempestade | ⛈️ | ⛈️ |
-| s, e | Neve | ❄️ | ❄️ |
-| g | Granizo | 🧊 | 🧊 |
-| v | Neblina | 🌫️ | 🌫️ |
+| `c` | Céu Limpo | ☀️ | 🌙 |
+| `pc` | Parcialmente Nublado | ⛅ | ☁️🌙 |
+| `n` | Nublado | ☁️ | ☁️ |
+| `pp` | Chuvisco | 🌦️ | 🌦️ |
+| `pm` | Chuva | 🌧️ | 🌧️ |
+| `ch` | Pancadas | ⛈️ | ⛈️ |
+| `t` | Tempestade | ⛈️ | ⛈️ |
+| `e` | Neve | ❄️ | ❄️ |
+| `g` | Granizo | 🧊 | 🧊 |
+| `v` | Neblina | 🌫️ | 🌫️ |
 
 ## 🐛 Resolução de Problemas
 
@@ -259,9 +269,9 @@ killall plasmashell && kstart5 plasmashell &
 
 ### Erro "Cidade não encontrada"
 
-- Verifique a grafia (use acentos: "São Paulo" não "Sao Paulo")
-- Teste: `curl "http://localhost:5234/clima?busca=Porto%20Alegre"`
-- Veja cidades disponíveis: [BrasilAPI CPTEC Cidades](https://brasilapi.com.br/docs#tag/CPTEC)
+- Tente variações do nome: "Porto Alegre", "Sao Paulo" (sem acento)
+- Use nomes em inglês se necessário: "New York", "London"
+- Teste diretamente: `curl "http://localhost:5234/clima?busca=Porto%20Alegre"`
 
 ## 🏗️ Desenvolvimento
 
@@ -298,6 +308,17 @@ dotnet publish -c Release -r linux-x64 --self-contained true \
 ~/.local/share/plasma/plasmoids/  # Widget instalado
 ```
 
+## 🌍 Por que Open-Meteo?
+
+- ✅ **Temperatura atual real** (não estimada)
+- ✅ **100% gratuita** sem necessidade de chave API
+- ✅ **Sem limites** para uso não comercial
+- ✅ **Cobertura global** com alta precisão
+- ✅ **Código aberto** e transparente
+- ✅ **Privacidade** sem rastreamento
+
+Mais informações: [open-meteo.com](https://open-meteo.com)
+
 ## 📝 Licença
 
 GPL-2.0+ - Software Livre
@@ -312,9 +333,9 @@ GPL-2.0+ - Software Livre
 
 ## 🙏 Créditos
 
-- **BrasilAPI** - Wrapper da API CPTEC/INPE
-- **CPTEC/INPE** - Dados meteorológicos
-- **KDE Project** - Framework Plasma 6
+- **Open-Meteo** - API meteorológica gratuita e de código aberto
+- **KDE Project** - Framework Plasma 6 e Kirigami
+- **WMO** - Códigos meteorológicos padrão
 
 ## 🤝 Contribuindo
 
@@ -328,4 +349,4 @@ Pull requests são bem-vindos!
 
 ---
 
-⭐ Gostou? Dê uma estrela no repositório!
+⭐ **Gostou?** Dê uma estrela no repositório!

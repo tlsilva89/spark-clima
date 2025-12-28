@@ -14,6 +14,33 @@
             "related": ".deps.json;.pdb;.xml"
           }
         }
+      },
+      "Microsoft.NET.ILLink.Tasks/10.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
+      }
+    },
+    "net10.0/linux-x64": {
+      "HtmlAgilityPack/1.12.4": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/HtmlAgilityPack.dll": {
+            "related": ".deps.json;.pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/HtmlAgilityPack.dll": {
+            "related": ".deps.json;.pdb;.xml"
+          }
+        }
+      },
+      "Microsoft.NET.ILLink.Tasks/10.0.0": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.NET.ILLink.Tasks.props": {}
+        }
       }
     }
   },
@@ -62,11 +89,62 @@
         "lib/uap10.0/HtmlAgilityPack.pri",
         "readme.md"
       ]
+    },
+    "Microsoft.NET.ILLink.Tasks/10.0.0": {
+      "sha512": "kICGrGYEzCNI3wPzfEXcwNHgTvlvVn9yJDhSdRK+oZQy4jvYH529u7O0xf5ocQKzOMjfS07+3z9PKRIjrFMJDA==",
+      "type": "package",
+      "path": "microsoft.net.illink.tasks/10.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "Sdk/Sdk.props",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/ILLink.CodeFixProvider.dll",
+        "analyzers/dotnet/cs/ILLink.RoslynAnalyzer.dll",
+        "build/Microsoft.NET.ILLink.Analyzers.props",
+        "build/Microsoft.NET.ILLink.Tasks.props",
+        "build/Microsoft.NET.ILLink.targets",
+        "microsoft.net.illink.tasks.10.0.0.nupkg.sha512",
+        "microsoft.net.illink.tasks.nuspec",
+        "tools/net/ILLink.Tasks.deps.json",
+        "tools/net/ILLink.Tasks.dll",
+        "tools/net/Mono.Cecil.Mdb.dll",
+        "tools/net/Mono.Cecil.Pdb.dll",
+        "tools/net/Mono.Cecil.Rocks.dll",
+        "tools/net/Mono.Cecil.dll",
+        "tools/net/Sdk/Sdk.props",
+        "tools/net/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/net/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/net/build/Microsoft.NET.ILLink.targets",
+        "tools/net/illink.deps.json",
+        "tools/net/illink.dll",
+        "tools/net/illink.runtimeconfig.json",
+        "tools/netframework/ILLink.Tasks.dll",
+        "tools/netframework/ILLink.Tasks.dll.config",
+        "tools/netframework/Mono.Cecil.Mdb.dll",
+        "tools/netframework/Mono.Cecil.Pdb.dll",
+        "tools/netframework/Mono.Cecil.Rocks.dll",
+        "tools/netframework/Mono.Cecil.dll",
+        "tools/netframework/Sdk/Sdk.props",
+        "tools/netframework/System.Buffers.dll",
+        "tools/netframework/System.Collections.Immutable.dll",
+        "tools/netframework/System.Memory.dll",
+        "tools/netframework/System.Numerics.Vectors.dll",
+        "tools/netframework/System.Reflection.Metadata.dll",
+        "tools/netframework/System.Runtime.CompilerServices.Unsafe.dll",
+        "tools/netframework/build/Microsoft.NET.ILLink.Analyzers.props",
+        "tools/netframework/build/Microsoft.NET.ILLink.Tasks.props",
+        "tools/netframework/build/Microsoft.NET.ILLink.targets",
+        "useSharedDesignerContext.txt"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "HtmlAgilityPack >= 1.12.4"
+      "HtmlAgilityPack >= 1.12.4",
+      "Microsoft.NET.ILLink.Tasks >= 10.0.0"
     ]
   },
   "packageFolders": {
@@ -75,11 +153,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
+      "projectUniqueName": "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj",
       "projectName": "ClimatempoBackend",
-      "projectPath": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
+      "projectPath": "/home/thiago/Documentos/spark-clima/backend/ClimatempoBackend.csproj",
       "packagesPath": "/home/thiago/.nuget/packages/",
-      "outputPath": "/home/thiago/Documentos/clima-tempo/backend/obj/",
+      "outputPath": "/home/thiago/Documentos/spark-clima/backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/thiago/.nuget/NuGet/NuGet.Config"
@@ -115,6 +193,12 @@
           "HtmlAgilityPack": {
             "target": "Package",
             "version": "[1.12.4, )"
+          },
+          "Microsoft.NET.ILLink.Tasks": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[10.0.0, )",
+            "autoReferenced": true
           }
         },
         "imports": [
@@ -128,6 +212,16 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.linux-x64",
+            "version": "[10.0.0, 10.0.0]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.linux-x64",
+            "version": "[10.0.0, 10.0.0]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -551,6 +645,11 @@
           "System.Xml.XPath": "(,4.3.32767]",
           "System.Xml.XPath.XDocument": "(,5.0.32767]"
         }
+      }
+    },
+    "runtimes": {
+      "linux-x64": {
+        "#import": []
       }
     }
   }
