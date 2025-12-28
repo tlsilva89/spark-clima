@@ -60,3 +60,4 @@
 /home/thiago/Documentos/clima-tempo/backend/obj/Debug/net10.0/ClimatempoBackend.pdb
 /home/thiago/Documentos/clima-tempo/backend/obj/Debug/net10.0/ClimatempoBackend.genruntimeconfig.cache
 /home/thiago/Documentos/clima-tempo/backend/obj/Debug/net10.0/ref/ClimatempoBackend.dll
+/home/thiago/Documentos/clima-tempo/backend/obj/Debug/net10.0/ClimatempoBackend.sourcelink.json
