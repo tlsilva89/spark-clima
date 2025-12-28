@@ -1,13 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5OLJypjYT/k=",
+  "dgSpecHash": "lN+k1T0Ph5s=",
   "success": true,
   "projectFilePath": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
   "expectedPackageFiles": [
-    "/home/thiago/.nuget/packages/htmlagilitypack/1.12.4/htmlagilitypack.1.12.4.nupkg.sha512",
-    "/home/thiago/.nuget/packages/microsoft.net.illink.tasks/10.0.0/microsoft.net.illink.tasks.10.0.0.nupkg.sha512",
-    "/home/thiago/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/10.0.0/microsoft.netcore.app.runtime.linux-x64.10.0.0.nupkg.sha512",
-    "/home/thiago/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/10.0.0/microsoft.aspnetcore.app.runtime.linux-x64.10.0.0.nupkg.sha512"
+    "/home/thiago/.nuget/packages/htmlagilitypack/1.12.4/htmlagilitypack.1.12.4.nupkg.sha512"
   ],
   "logs": []
 }
