@@ -15,11 +15,19 @@ if [ ! -d "$WIDGET_DIR" ]; then
     exit 1
 fi
 
+# Verificar se porta 5234 está livre
+if ss -tulpn | grep -q ":5234"; then
+    echo "❌ Erro: Porta 5234 já está em uso"
+    echo "Execute: killall -9 dotnet"
+    echo "Ou: lsof -i :5234 para ver o processo"
+    exit 1
+fi
+
 # Publicar aplicação backend
 echo "1. Publicando backend..."
 cd backend
 dotnet publish -c Release -r linux-x64 --self-contained true \
-  /p:PublishSingleFile=true /p:PublishTrimmed=true -o ./publish
+  /p:PublishSingleFile=true -o ./publish
 cd ..
 
 # Criar diretório de instalação
@@ -40,12 +48,13 @@ Description=Spark Clima Backend API
 After=network.target
 
 [Service]
-Type=notify
+Type=exec
 WorkingDirectory=$INSTALL_DIR
 ExecStart=$INSTALL_DIR/ClimatempoBackend
 Restart=always
 RestartSec=10
-KillSignal=SIGINT
+StandardOutput=journal
+StandardError=journal
 SyslogIdentifier=sparkclima
 Environment=ASPNETCORE_ENVIRONMENT=Production
 Environment=ASPNETCORE_URLS=http://localhost:5234
@@ -55,43 +64,50 @@ WantedBy=default.target
 EOF
 
 # Recarregar systemd do usuário
-echo "5. Habilitando e iniciando serviço..."
+echo "5. Recarregando systemd..."
 systemctl --user daemon-reload
+
+# Habilitar serviço
+echo "6. Habilitando serviço..."
 systemctl --user enable sparkclima.service
+
+# Iniciar serviço com timeout
+echo "7. Iniciando serviço (pode levar alguns segundos)..."
 systemctl --user start sparkclima.service
 
-# Habilitar lingering (serviço inicia no boot sem login)
-loginctl enable-linger $USER
+# Aguardar 5 segundos
+echo "8. Aguardando inicialização..."
+sleep 5
+
+# Verificar se está rodando
+if systemctl --user is-active --quiet sparkclima; then
+    echo "   ✓ Backend iniciado com sucesso"
+else
+    echo "   ⚠ Backend não está rodando"
+    echo "   Ver logs: journalctl --user -u sparkclima"
+    systemctl --user status sparkclima --no-pager
+fi
+
+# Habilitar lingering
+loginctl enable-linger $USER 2>/dev/null || true
 
 # Instalar widget KDE Plasma
-echo "6. Instalando widget KDE Plasma..."
+echo "9. Instalando widget KDE Plasma..."
 kpackagetool6 -t Plasma/Applet -i "$WIDGET_DIR" 2>/dev/null || \
 kpackagetool6 -t Plasma/Applet -u "$WIDGET_DIR"
-
-# Verificar se o backend está rodando
-echo "7. Verificando backend..."
-sleep 2
-if systemctl --user is-active --quiet sparkclima; then
-    echo "   ✓ Backend está rodando"
-else
-    echo "   ⚠ Backend não está rodando, verificar logs"
-fi
 
 echo ""
 echo "✅ Instalação concluída!"
 echo ""
-echo "📂 Backend instalado em: $INSTALL_DIR"
-echo "🎨 Widget instalado: Spark Clima"
+echo "📂 Backend: $INSTALL_DIR"
+echo "🎨 Widget: Spark Clima"
 echo ""
-echo "Comandos úteis (Backend):"
+echo "Comandos úteis:"
 echo "  Status:    systemctl --user status sparkclima"
 echo "  Logs:      journalctl --user -u sparkclima -f"
 echo "  Parar:     systemctl --user stop sparkclima"
 echo "  Reiniciar: systemctl --user restart sparkclima"
+echo "  Testar:    curl http://localhost:5234/clima?busca=Sao%20Paulo"
 echo ""
-echo "Widget:"
-echo "  Adicione o widget 'Spark Clima' ao painel ou desktop"
-echo "  Clique com botão direito → Adicionar Widgets → Spark Clima"
-echo ""
-echo "🌐 Backend disponível em: http://localhost:5234"
+echo "Widget: Adicionar Widgets → Spark Clima"
 echo ""

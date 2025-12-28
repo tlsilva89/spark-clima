@@ -16,6 +16,7 @@
         "Version": "1.0",
         "Website": "https://digitalspark.dev"
     },
+    "X-Plasma-API-Minimum-Version": "6.0",
     "X-Plasma-API": "declarativeappletscript",
     "X-Plasma-MainScript": "ui/main.qml"
 }

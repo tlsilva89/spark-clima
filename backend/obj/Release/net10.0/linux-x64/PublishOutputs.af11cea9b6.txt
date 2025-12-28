@@ -1,0 +1,10 @@
+/home/thiago/Documentos/clima-tempo/backend/publish/appsettings.Development.json
+/home/thiago/Documentos/clima-tempo/backend/publish/appsettings.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/appsettings.Development.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/appsettings.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/ClimatempoBackend.staticwebassets.endpoints.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/publish/appsettings.Development.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/publish/appsettings.json
+/home/thiago/Documentos/clima-tempo/backend/publish/publish/publish/ClimatempoBackend.staticwebassets.endpoints.json
+/home/thiago/Documentos/clima-tempo/backend/publish/ClimatempoBackend.pdb
+/home/thiago/Documentos/clima-tempo/backend/publish/ClimatempoBackend

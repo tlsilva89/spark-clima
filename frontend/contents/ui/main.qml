@@ -75,57 +75,54 @@ PlasmoidItem {
     }
     
     compactRepresentation: Item {
-        Layout.minimumWidth: 100
-        Layout.minimumHeight: 60
-        Layout.preferredWidth: 120
-        Layout.preferredHeight: 70
+        Layout.minimumWidth: 50
+        Layout.minimumHeight: 24
+        Layout.preferredWidth: 70
+        Layout.preferredHeight: 30
+        Layout.maximumHeight: 30
+        
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+        }
         
         MouseArea {
             anchors.fill: parent
             onClicked: root.expanded = !root.expanded
         }
         
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 8
-            spacing: 2
+        RowLayout {
+            anchors.centerIn: parent
+            spacing: 4
             
             PlasmaComponents.Label {
-                text: root.carregando ? "..." : (root.erro ? "Erro" : root.cidadeNome + " - " + root.estado)
-                font.pointSize: 6
-                font.weight: Font.Medium
-                color: "#FFFFFF"
-                opacity: 0.6
-                Layout.alignment: Qt.AlignHCenter
-                elide: Text.ElideRight
-                Layout.fillWidth: true
-                horizontalAlignment: Text.AlignHCenter
-            }
-            
-            Item { Layout.fillHeight: true }
-            
-            RowLayout {
                 visible: !root.carregando && !root.erro
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 6
-                
-                PlasmaComponents.Label {
-                    text: root.temperatura + "°"
-                    font.pointSize: 20
-                    font.weight: Font.Bold
-                    color: "#FFFFFF"
-                }
-                
-                Kirigami.Icon {
-                    source: getWeatherIcon(root.condicaoCode)
-                    Layout.preferredWidth: 22
-                    Layout.preferredHeight: 22
-                    color: "#FFFFFF"
-                    opacity: 0.8
-                }
+                text: root.temperatura + "°"
+                font.pointSize: 11
+                font.weight: Font.Bold
+                color: PlasmaCore.Theme.textColor
             }
             
-            Item { Layout.fillHeight: true }
+            Kirigami.Icon {
+                visible: !root.carregando && !root.erro
+                source: getWeatherIcon(root.condicaoCode)
+                Layout.preferredWidth: 18
+                Layout.preferredHeight: 18
+            }
+            
+            PlasmaComponents.Label {
+                visible: root.carregando
+                text: "..."
+                font.pointSize: 9
+                color: PlasmaCore.Theme.textColor
+            }
+            
+            PlasmaComponents.Label {
+                visible: root.erro
+                text: "!"
+                font.pointSize: 12
+                color: PlasmaCore.Theme.negativeTextColor
+            }
         }
     }
     
@@ -134,6 +131,11 @@ PlasmoidItem {
         Layout.minimumHeight: 280
         Layout.preferredWidth: 280
         Layout.preferredHeight: 320
+        
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+        }
         
         ColumnLayout {
             anchors.fill: parent
@@ -144,7 +146,7 @@ PlasmoidItem {
                 text: root.cidadeNome + " - " + root.estado
                 font.pointSize: 13
                 font.weight: Font.Medium
-                color: "#FFFFFF"
+                color: PlasmaCore.Theme.textColor
                 opacity: 0.7
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
@@ -164,14 +166,13 @@ PlasmoidItem {
                     text: root.temperatura + "°"
                     font.pointSize: 64
                     font.weight: Font.Bold
-                    color: "#FFFFFF"
+                    color: PlasmaCore.Theme.textColor
                 }
                 
                 Kirigami.Icon {
                     source: getWeatherIcon(root.condicaoCode)
                     Layout.preferredWidth: 56
                     Layout.preferredHeight: 56
-                    color: "#FFFFFF"
                     opacity: 0.7
                 }
             }
@@ -180,7 +181,7 @@ PlasmoidItem {
                 visible: root.carregando
                 text: "Carregando..."
                 font.pointSize: 12
-                color: "#FFFFFF"
+                color: PlasmaCore.Theme.textColor
                 opacity: 0.7
                 Layout.alignment: Qt.AlignCenter
                 Layout.fillWidth: true
@@ -204,7 +205,7 @@ PlasmoidItem {
                 PlasmaComponents.Label {
                     text: root.erro
                     font.pointSize: 10
-                    color: "#FFFFFF"
+                    color: PlasmaCore.Theme.textColor
                     opacity: 0.7
                     wrapMode: Text.WordWrap
                     Layout.fillWidth: true
@@ -229,7 +230,7 @@ PlasmoidItem {
                     visible: !root.carregando && !root.erro
                     text: formatarDataHora(root.atualizado)
                     font.pointSize: 7
-                    color: "#FFFFFF"
+                    color: PlasmaCore.Theme.textColor
                     opacity: 0.3
                 }
                 
