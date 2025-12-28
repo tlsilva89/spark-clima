@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lN+k1T0Ph5s=",
+  "success": true,
+  "projectFilePath": "/home/thiago/Documentos/clima-tempo/backend/ClimatempoBackend.csproj",
+  "expectedPackageFiles": [
+    "/home/thiago/.nuget/packages/htmlagilitypack/1.12.4/htmlagilitypack.1.12.4.nupkg.sha512"
+  ],
+  "logs": []
+}

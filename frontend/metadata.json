@@ -1,0 +1,21 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "tlsilva89@icloud.com",
+                "Name": "Thiago Luciano"
+            }
+        ],
+        "Category": "Environment and Weather",
+        "Description": "Widget de previsão do tempo usando dados brasileiros",
+        "Icon": "weather-clouds",
+        "Id": "dev.digitalspark.sparkclima",
+        "License": "GPL-2.0+",
+        "Name": "Spark Clima",
+        "Version": "1.0",
+        "Website": "https://digitalspark.dev"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
